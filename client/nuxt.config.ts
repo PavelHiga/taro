@@ -43,6 +43,11 @@ export default defineNuxtConfig({
   devServer: {
     host: process.env.DEV_HOST
   },
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.DEV_HOST ?? 'http://localhost:3000',
+    }
+  },
   supabase: {
     redirect: false
   }

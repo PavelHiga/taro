@@ -74,8 +74,6 @@ export default defineEventHandler(async (event) => {
                 }
             }
         } as any
-
-
     })
 
     let content = response.choices?.[0]?.message?.content
