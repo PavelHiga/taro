@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
   devtools: { enabled: true },
+  nitro: {
+    preset: 'vercel'
+  },
   app: {
     head: {
       meta: [
