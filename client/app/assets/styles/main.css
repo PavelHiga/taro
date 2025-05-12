@@ -1,5 +1,5 @@
 .bg {
-    background: url('/Users/pavel/WebstormProjects/taro/client/public/bg1.jpg') no-repeat center center;
+    background: url('/bg1.jpg') no-repeat center center;
     background-size: max(150%, 150%);
     color: white;
 }
