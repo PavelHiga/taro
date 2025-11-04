@@ -31,11 +31,17 @@ export const useTaroStore = defineStore('taro', () => {
             loading.value = false
         }
     }
+
+    function setTarotResult(result: TarotResult) {
+        answer.value = result
+    }
+    
     return {
         telegramUser,
         answer,
         loading,
         error,
-        askGPT
+        askGPT,
+        setTarotResult
     }
 })

@@ -6,8 +6,16 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
   devtools: { enabled: true },
+  ssr: false,
   nitro: {
-    preset: 'vercel'
+    preset: 'vercel',
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+        prependPath: true,
+      }
+    }
   },
   app: {
     head: {
@@ -25,8 +33,15 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+    server: {
+      allowedHosts: [
+        'localhost',
+        '127.0.0.1',
+        'a461ddb8db2d.ngrok-free.app'
+      ]
+    }
   },
-  modules: ['shadcn-nuxt', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/supabase', '@nuxt/image'],
+  modules: ['shadcn-nuxt', '@nuxt/icon', '@pinia/nuxt', '@nuxt/image'],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -51,7 +66,5 @@ export default defineNuxtConfig({
       baseUrl: process.env.DEV_HOST ?? 'http://localhost:3000',
     }
   },
-  supabase: {
-    redirect: false
-  }
+
 })
