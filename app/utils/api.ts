@@ -1,41 +1,6 @@
-// Конфигурация API
-export const API_CONFIG = {
-  // URL бэкенд сервера
-  BASE_URL: (() => {
-    // Очищаем localStorage от старых URL
-    if (typeof window !== 'undefined') {
-      const customUrl = localStorage.getItem('taro_api_url');
-      if (customUrl && customUrl.includes('ngrok')) {
-        localStorage.removeItem('taro_api_url');
-      }
-    }
-    
-    // Используем относительные пути - Nuxt прокси будет перенаправлять на backend
-    return ''
-  })(),
-}
-
-// Функция для получения полного URL
-export function getApiUrl(endpoint: string): string {
-  return `${API_CONFIG.BASE_URL}${endpoint}`
-}
-
-// Функция для установки API URL (для отладки)
-export function setApiUrl(url: string) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('taro_api_url', url);
-    console.log('API URL установлен:', url);
-  }
-}
-
-// Функция для получения текущего API URL
-export function getCurrentApiUrl(): string {
-  return API_CONFIG.BASE_URL;
-}
-
 // Функция для получения invoice link для оплаты
 export async function getInvoiceLink(userId: number, message: string, cards: any[]) {
-  const url = '/api/tg/getInvoiceLink';
+  const url = 'https://taro-bot-xi.vercel.app/createInvoiceLink';
   console.log('🔗 Получаем invoice link для userId:', userId);
   
   try {
@@ -49,6 +14,18 @@ export async function getInvoiceLink(userId: number, message: string, cards: any
     });
 
     console.log('✅ Invoice link получен:', result);
+
+    if (result && typeof result === 'object') {
+      if ('success' in result && 'data' in result) {
+        return result;
+      } else if ('invoiceLink' in result) {
+        return {
+          success: true,
+          data: result.invoiceLink
+        };
+      }
+    }
+    
     return result;
   } catch (error) {
     console.error('💥 Ошибка получения invoice link:', error);
@@ -58,7 +35,7 @@ export async function getInvoiceLink(userId: number, message: string, cards: any
 
 // Функция для запроса к API таро после оплаты
 export async function fetchTarotReadingPaid(userId: number, message: string, cards: any[], paymentData: any) {
-  const url = '/api/taro/reading-paid';
+  const url = 'https://taro-bot-xi.vercel.app/reading-paid';
   console.log('🚀 Отправляем запрос на оплаченное гадание:', url);
   console.log('📦 Данные:', { userId, message, cards, paymentData });
   
