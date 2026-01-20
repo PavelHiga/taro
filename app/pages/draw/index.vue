@@ -221,14 +221,16 @@ const showResult = async () => {
       data?: string;
       error?: string;
     };
-    
+
     console.log('📦 Invoice response:', invoiceResponse);
-    console.log('📦 Invoice response keys:', Object.keys(invoiceResponse || {}));
-    console.log('📦 Has success:', 'success' in (invoiceResponse || {}));
-    console.log('📦 Has data:', 'data' in (invoiceResponse || {}));
-    console.log('📦 success value:', invoiceResponse?.success);
-    console.log('📦 data value:', invoiceResponse?.data);
-    
+    console.log('📦 type:', typeof invoiceResponse);
+
+    if (invoiceResponse && typeof invoiceResponse === 'object') {
+      console.log('📦 keys:', Object.keys(invoiceResponse));
+      console.log('📦 success:', (invoiceResponse as any).success);
+      console.log('📦 data:', (invoiceResponse as any).data);
+    }
+
     if (!invoiceResponse || !invoiceResponse.success || !invoiceResponse.data) {
       const errorMsg = invoiceResponse?.error || 
         (invoiceResponse?.data ? 'Invoice link получен, но формат неверный' : 'Не удалось создать счет для оплаты');
