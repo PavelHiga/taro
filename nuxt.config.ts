@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
   devtools: { enabled: true },
-  ssr: false,
   nitro: {
     preset: 'vercel',
     devProxy: {
