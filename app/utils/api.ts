@@ -1,6 +1,6 @@
 // Функция для получения invoice link для оплаты
 export async function getInvoiceLink(userId: number, message: string, cards: any[]) {
-  const url = 'https://taro-bot-xi.vercel.app/createInvoiceLink';
+  const url = '/api/tg/getInvoiceLink';
   console.log('🔗 Получаем invoice link для userId:', userId);
   
   try {
@@ -35,7 +35,7 @@ export async function getInvoiceLink(userId: number, message: string, cards: any
 
 // Функция для запроса к API таро после оплаты
 export async function fetchTarotReadingPaid(userId: number, message: string, cards: any[], paymentData: any) {
-  const url = 'https://taro-bot-xi.vercel.app/reading-paid';
+  const url = '/api/taro/reading-paid';
   console.log('🚀 Отправляем запрос на оплаченное гадание:', url);
   console.log('📦 Данные:', { userId, message, cards, paymentData });
   
